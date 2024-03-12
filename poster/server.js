@@ -76,7 +76,7 @@ server.route('post', '/api/login', (req, res) => {
     const user = USERS.find((i) => i.username === username)
 
     if (user && user.password === password) {
-      const token = Math.floor(Math.random() * 1000000000)
+      const token = Math.floor(Math.random() * 1000000000).toString()
 
       SESSION.push({
         userId: user.id,
@@ -99,8 +99,8 @@ server.route('post', '/api/login', (req, res) => {
 server.route('get', '/api/user', (req, res) => {
   const token = req.headers.cookie.split('=')[1]
   // console.log(SESSION)
-  const session = SESSION.find((i) => i.token === Number(token))
-  console.log(`---session`, session)
+  const session = SESSION.find((i) => i.token === token)
+  // console.log(`---session`, session)
   if (session) {
     res.status(200).json({
       msg: 'Welcome',
